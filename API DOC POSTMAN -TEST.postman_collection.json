@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "fbd1130c-a8b8-4b47-9a59-1d69a03027a2",
+		"name": "API DOC POSTMAN -TEST",
+		"description": "API collection for managing patients, providers, statuses, and status history",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14149591"
+	},
+	"item": [
+		{
+			"name": "Patients",
+			"item": [
+				{
+					"name": "Get All Patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/patient",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Patient by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/patient/b36cf44d-e1fd-49af-ae82-73ee344c705f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"patient",
+								"b36cf44d-e1fd-49af-ae82-73ee344c705f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Patient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full_name\": \"Pepe\",\n  \"email\": \"pepe@pepe.com\",\n  \"phone\": \"555-0199\",\n  \"provider_id\": \"48d2ef43-caec-49dc-a3c8-68dc2a775a63\",\n  \"status_id\": \"c55d400a-975a-4a60-816b-76e8a80e25be\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/patient",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"patient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Patient",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full_name\": \"John Doe Updated\",\n  \"email\": \"john.updated@example.com\",\n  \"phone\": \"+1-555-0199\",\n  \"provider_id\": \"{{provider_id}}\",\n  \"status_id\": \"{{status_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/patient/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"patient",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Patient UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Patient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/patient/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"patient",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Patient UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Providers",
+			"item": [
+				{
+					"name": "Get All Providers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/provider",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"provider"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Provider by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/provider/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"provider",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Provider UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Provider",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full_name\": \"Dr. Pepe\",\n  \"specialty\": \"Neurología\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/provider",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"provider"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Provider",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"full_name\": \"Dr. Jane Smith Updated\",\n  \"specialty\": \"Cardiología\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/provider/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"provider",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Provider UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Provider",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/provider/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"provider",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Provider UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"item": [
+				{
+					"name": "Get All Statuses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Status by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/status/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"status",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Status UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Status History",
+			"item": [
+				{
+					"name": "Get All Status History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/status-history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"status-history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Status History by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/status-history/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"status-history",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Status History UUID"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Status History",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"patient_id\": \"\",\n  \"status_id\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/status-history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"status-history"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "patient_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "provider_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "status_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

@@ -1,138 +1,82 @@
-## Technical Challenge
+# Technical Challenge
 
-### Background
+## Project Overview
 
-At VIP Medical Group, we are building a new internal module for our Medwork platform—a system that allows our staff to register patients, assign them to doctors (providers), and track their clinical status throughout their care journey.
+This project consists of a frontend and backend application for managing patients,providers and their statuses.
 
-In this challenge, you’ll simulate part of this module by creating a full-stack application that allows managing patients, providers, and clinical statuses with a parent-child hierarchy.
+## Architecture
 
-We are **not evaluating specific tools or patterns**. We simply want to understand how you think, how you code, and how you approach real-world problems. Be yourself.
+- **Backend**: REST API server handling provider data and status management
+- **Frontend**: Client application for user interface and data visualization
+- **Database**: Data persistence layer with seeded providers and statuses
 
+## Prerequisites
 
+- Node.js
+- npm
+- Database system (PostgreSQL)
 
-### What You Need to Build
+## Installation & Setup
 
-A functional **full stack application** with the ability to:
+### Backend Setup
 
-1. Create patients and providers
-2. Assign a provider to a patient
-3. Change the patient’s clinical status (with hierarchy)
-4. Display the status change history of a patient
+```bash
+# Navigate to backend directory
+cd backend
 
+# Install dependencies
+npm install
 
+# Configure environment variables
+cp .env.example .env
+# Edit .env with your database credentials
 
-### Database Schema
+# Run database migrations
+npx prisma migrate dev
 
-You must implement these 4 tables exactly as described below:
+# Seed the database with initial data
+npx prisma db seed
 
-#### 1. `patients`
+# Start the backend server
+npm run start:dev
+```
 
-| Field        | Type      |
-| ------------ | --------- |
-| id           | UUID      |
-| full\_name   | string    |
-| email        | string    |
-| phone        | string    |
-| provider\_id | UUID (FK) |
-| status\_id   | UUID (FK) |
-| created\_at  | datetime  |
+### Frontend Setup
 
-#### 2. `providers`
+```bash
+# Navigate to frontend directory
+cd front
 
-| Field       | Type     |
-| ----------- | -------- |
-| id          | UUID     |
-| full\_name  | string   |
-| specialty   | string   |
-| created\_at | datetime |
-
-#### 3. `statuses`
-
-| Field      | Type                            |
-| ---------- | ------------------------------- |
-| id         | UUID                            |
-| name       | string                          |
-| parent\_id | UUID (nullable, FK to statuses) |
-| order      | integer                         |
-
-> This table allows parent-child status relationships.
-
-#### 4. `status_history`
-
-| Field       | Type      |
-| ----------- | --------- |
-| id          | UUID      |
-| patient\_id | UUID (FK) |
-| status\_id  | UUID (FK) |
-| changed\_at | datetime  |
+# Install dependencies
+npm install
 
 
+# Start the frontend application
+npm run dev
+```
 
-### Preloaded Statuses
+## Running the Complete Application
 
-These statuses must be preloaded in the database:
+1. Start the backend server (usually runs on port 3000)
+2. Start the frontend application (usually runs on port 5173)
+3. Access the application at `http://localhost:5173`
 
-* `Scheduled`
+## Seed Data
 
-  * `Checked-In`
+The seed script will populate the database with:
+- Sample providers
+- Sample Patients
+- Available status options
+- Initial provider-status relationships
 
-    * `In Consultation`
-    * `Cancelled`
-  * `No-Show`
+Run: `npx prisma db seed` in the backend directory
 
-You can use a seed script or migrations to insert them.
+## Design Decisions
 
-
-
-### Tech Stack
-
-#### Backend
-
-* Language: TypeScript
-* Framework: **NestJS** or **Express**
-* Database: **PostgreSQL**, **MySQL**, or **MongoDB**
-* If you prefer, you may separate logic into small services (e.g., `patients-service`, `statuses-service`)
-
-  * Use **HTTP**, **events**, or **gRPC** for inter-service communication
-  * If using multiple services, you must include an **API Gateway**
-
-#### Frontend
-
-* Framework: **React** (Vite)
-* Styling: **TailwindCSS**
-* State management: **Redux Toolkit** or **Zustand**
-* Data fetching: **Tanstack Query**
+- **Separation of Concerns**: Frontend and backend are separate applications
+- **RESTful API**: Standard HTTP methods for CRUD operations
+- **Seeded Data**: Consistent starting point for development and testing
 
 
-
-### Required Screens
-
-You should include the following screens:
-
-1. Patient creation form
-2. Provider creation form
-3. Patient list (showing status and assigned provider)
-4. Patient status update control (e.g., dropdown)
-5. Patient status history (as timeline or list)
-
-> **Optional screen:** Provider list view.
-
-
-
-### Submission Instructions
-
-* You will receive a Git repository link for the base project.
-* **Fork the repository**, complete your work in a new branch, and **submit a pull request** to share your solution.
-* Include a `README.md` with:
-
-  * Clear instructions to run the project locally
-  * A short explanation of your architecture or design decisions
-  * A seed script to preload providers and statuses
-
-
-
-### Time Expectation
-
-You should spend no more than **8 hours** on this task.
-
-Don’t worry if you can’t finish everything. What matters most is **how far you get** and **how you approach the problem**.
+## POSTMAN
+- **POSTMAN DOC**: You can find in this files a postman collection with all endpoints
