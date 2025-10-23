@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider =  "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id             String          @id @default(uuid()) @db.Uuid
+  full_name      String
+  email          String          
+  phone          String          
+  provider_id    String          @db.Uuid
+  status_id      String          @db.Uuid
+  created_at     DateTime        @default(now())
+  provider       Provider        @relation(fields: [provider_id], references: [id])
+  status         Status          @relation("PatientCurrentStatus", fields: [status_id], references: [id])
+  status_history StatusHistory[]
+
+  @@map("patients")
+}
+
+model Provider {
+  id         String    @id @default(uuid()) @db.Uuid
+  full_name  String
+  specialty  String
+  created_at DateTime  @default(now())
+  patients   Patient[]
+
+  @@map("providers")
+}
+
+model Status {
+  id        String  @id @default(uuid()) @db.Uuid
+  name      String
+  parent_id String? @db.Uuid
+  order     Int
+
+  parent         Status?         @relation("StatusHierarchy", fields: [parent_id], references: [id])
+  children       Status[]        @relation("StatusHierarchy")
+  patients       Patient[]       @relation("PatientCurrentStatus")
+  status_history StatusHistory[]
+
+  @@map("statuses")
+}
+
+model StatusHistory {
+  id         String   @id @default(uuid()) @db.Uuid
+  patient_id String   @db.Uuid
+  status_id  String   @db.Uuid
+  changed_at DateTime @default(now())
+  patient    Patient  @relation(fields: [patient_id], references: [id])
+  status     Status   @relation(fields: [status_id], references: [id])
+
+  @@map("status_history")
+}
